@@ -8,7 +8,7 @@ end
 feature "viewing hit points - " do
   scenario "seeing player2's hit points - " do
     sign_in_and_play
-    expect(page).to have_content "Hooch Hp:100"
+    expect(page).to have_content "Hooch HP:100"
   end
 end
 
@@ -25,10 +25,10 @@ feature "players do damage" do
     sign_in_and_play
     click_button 'Attack!'
     click_button 'OK!'
-    expect(page).to have_content "Hooch Hp:90"
+    expect(page).to have_content "Hooch HP:90"
     click_button 'Attack!'
     click_button 'OK!'
-    expect(page).to have_content "Turner Hp:90"
+    expect(page).to have_content "Turner HP:90"
   end
 end
 

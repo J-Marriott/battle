@@ -28,7 +28,7 @@ class Battle < Sinatra::Base
 
   post '/attack' do
     game = Game.instance
-    opponent = game.opponent_of game.active_player
+    opponent = game.opponent_of
     game.attack opponent
     @opponent_name = opponent.name
     if opponent.health == 0

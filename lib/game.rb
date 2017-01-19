@@ -17,15 +17,11 @@ class Game
   end
 
   def switch
-    if player_1_active
-      @active_player = player_2
-    elsif player_2_active
-      @active_player = player_1
-    end
+    @active_player = opponent_of
   end
 
-  def opponent_of(player)
-    if player == player_1
+  def opponent_of
+    if @active_player == player_1
       player_2
     else
       player_1
