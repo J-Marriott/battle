@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require_relative './lib/game'
 require_relative './lib/player'
+require_relative './lib/computer'
 
 class Battle < Sinatra::Base
   enable :sessions
@@ -11,7 +12,11 @@ class Battle < Sinatra::Base
 
   post '/names' do
     player_1 = Player.new(params[:player1])
-    player_2 = Player.new(params[:player2])
+    if params[:player2] == ""
+        player_2 = Computer.new
+      else
+        player_2 = Player.new(params[:player2])
+      end
     Game.new(player_1,player_2)
     redirect '/play'
   end
