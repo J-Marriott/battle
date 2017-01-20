@@ -1,7 +1,7 @@
 class Game
   attr_reader :player_1, :player_2, :active_player
 
-  def initialize player_1, player_2
+  def initialize(player_1, player_2)
     @player_1 = player_1
     @player_2 = player_2
     @active_player = player_1
@@ -13,23 +13,23 @@ class Game
   end
 
   def attack player
-    player.takes_damage
+    player.takes_damage(damage)
   end
 
   def switch
-    if player_1_active
-      @active_player = player_2
-    elsif player_2_active
-      @active_player = player_1
-    end
+    @active_player = opponent_of
   end
 
-  def opponent_of(player)
-    if player == player_1
+  def opponent_of
+    if @active_player == player_1
       player_2
     else
       player_1
     end
+  end
+
+  def damage
+    rand(1..5) * 10
   end
 
   def player_1

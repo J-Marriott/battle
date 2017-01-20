@@ -8,7 +8,7 @@ end
 feature "viewing hit points - " do
   scenario "seeing player2's hit points - " do
     sign_in_and_play
-    expect(page).to have_content "Hooch Hp:100"
+    expect(page).to have_content "Hooch HP:100"
   end
 end
 
@@ -21,14 +21,15 @@ feature "attack other player" do
 end
 
 feature "players do damage" do
-  scenario "attack other player and do 10 damage" do
+  scenario "attack other player and does random damage" do
+    Game.any_instance.stub(:damage){20}
     sign_in_and_play
     click_button 'Attack!'
     click_button 'OK!'
-    expect(page).to have_content "Hooch Hp:90"
+    expect(page).to have_content "Hooch HP:80"
     click_button 'Attack!'
     click_button 'OK!'
-    expect(page).to have_content "Turner Hp:90"
+    expect(page).to have_content "Turner HP:80"
   end
 end
 
@@ -47,6 +48,7 @@ end
 
 feature "players can lose" do
   scenario "player loses when hp reaches 0" do
+    Game.any_instance.stub(:damage){10}
     sign_in_and_play
     18.times{attack}
     click_button 'Attack!'

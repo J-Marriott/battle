@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require_relative './lib/game'
 require_relative './lib/player'
+require_relative './lib/computer'
 
 class Battle < Sinatra::Base
   enable :sessions
@@ -11,7 +12,11 @@ class Battle < Sinatra::Base
 
   post '/names' do
     player_1 = Player.new(params[:player1])
-    player_2 = Player.new(params[:player2])
+    if params[:player2] == ""
+        player_2 = Computer.new
+      else
+        player_2 = Player.new(params[:player2])
+      end
     Game.new(player_1,player_2)
     redirect '/play'
   end
@@ -28,13 +33,16 @@ class Battle < Sinatra::Base
 
   post '/attack' do
     game = Game.instance
-    opponent = game.opponent_of game.active_player
+    opponent = game.opponent_of
     game.attack opponent
     @opponent_name = opponent.name
-    if opponent.health == 0
-      redirect '/winner'
+    redirect '/winner' if opponent.health <= 0
+    if @opponent_name = "HAL"
+      game.attack(game.player_1)
+      (game.switch; redirect '/winner') if game.player_1.health <=0
+    else
+      game.switch
     end
-    game.switch
     erb :attack
   end
 
