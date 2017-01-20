@@ -7,7 +7,7 @@ class Player
     @health = 100
   end
 
-  def takes_damage(damage=10)
+  def takes_damage(damage)
     @health -= damage
   end
 

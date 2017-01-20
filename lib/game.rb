@@ -13,7 +13,7 @@ class Game
   end
 
   def attack player
-    player.takes_damage
+    player.takes_damage(damage)
   end
 
   def switch
@@ -26,6 +26,10 @@ class Game
     else
       player_1
     end
+  end
+
+  def damage
+    rand(1..5) * 10
   end
 
   def player_1
