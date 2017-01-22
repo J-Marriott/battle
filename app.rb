@@ -37,7 +37,7 @@ class Battle < Sinatra::Base
     game.attack opponent
     @opponent_name = opponent.name
     redirect '/winner' if opponent.health <= 0
-    if @opponent_name = "HAL"
+    if @opponent_name == "HAL"
       game.attack(game.player_1)
       (game.switch; redirect '/winner') if game.player_1.health <=0
     else
